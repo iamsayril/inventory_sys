@@ -27,19 +27,34 @@ if (isset($_POST['update'])) {
     $name = $_POST['product_name'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $description = $_POST['description'];
 
-    $update_sql = "UPDATE products SET product_name=?, price=?, quantity=?, description=? WHERE product_id=?";
+    // IMAGE UPLOAD
+    $img_name = $product['prod_img']; // default to existing image
+    if (isset($_FILES['prod_img']) && $_FILES['prod_img']['error'] == 0) {
+        $target_dir = "uploads/";
+        $tmp_name = $_FILES['prod_img']['tmp_name'];
+        $filename = basename($_FILES['prod_img']['name']);
+        $target_file = $target_dir . $filename;
+
+        // Move uploaded file
+        if (move_uploaded_file($tmp_name, $target_file)) {
+            $img_name = $filename;
+        } else {
+            echo "<p style='color:red;'>Failed to upload image.</p>";
+        }
+    }
+
+    // Update query
+    $update_sql = "UPDATE products SET product_name=?, price=?, quantity=?, prod_img=? WHERE product_id=?";
     $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bind_param("sdisi", $name, $price, $quantity, $description, $product_id);
+    $update_stmt->bind_param("sdssi", $name, $price, $quantity, $img_name, $product_id);
 
     if ($update_stmt->execute()) {
         echo "<p style='color:green; text-align:center;'>Product updated successfully! <a href='index.php'>Go Back</a></p>";
-        // Update local product array for form values
         $product['product_name'] = $name;
         $product['price'] = $price;
         $product['quantity'] = $quantity;
-        $product['description'] = $description;
+        $product['prod_img'] = $img_name;
     } else {
         echo "<p style='color:red; text-align:center;'>Error updating product: " . $conn->error . "</p>";
     }
@@ -58,7 +73,7 @@ if (isset($_POST['update'])) {
 
 <div class="edit-form">
     <h2>Edit Product</h2>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <label for="product_name">Product Name</label>
         <input type="text" name="product_name" id="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
 
@@ -68,8 +83,13 @@ if (isset($_POST['update'])) {
         <label for="quantity">Quantity</label>
         <input type="number" name="quantity" id="quantity" value="<?php echo $product['quantity']; ?>" required>
 
-        <label for="description">Description</label>
-        <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($product['description']); ?></textarea>
+        <label for="prod_img">Product Image</label>
+        <?php if (!empty($product['prod_img']) && file_exists('uploads/' . $product['prod_img'])): ?>
+            <div style="margin-bottom:10px;">
+                <img src="uploads/<?php echo htmlspecialchars($product['prod_img']); ?>" alt="Product Image" style="width:150px; height:150px; object-fit:cover; border-radius:10px;">
+            </div>
+        <?php endif; ?>
+        <input type="file" name="prod_img" id="prod_img" accept="image/*">
 
         <button type="submit" name="update">Update Product</button>
     </form>

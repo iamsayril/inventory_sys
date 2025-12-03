@@ -8,7 +8,7 @@
 
 html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  scroll-behavior: smooth; /* smooth scroll for nav links */
+  scroll-behavior: smooth;
 }
 
 .container {
@@ -46,7 +46,6 @@ html {
   font-weight: 600;
 }
 
-/* center the nav links */
 .nav-links {
   position: absolute;
   left: 50%;
@@ -76,10 +75,10 @@ html {
   padding: 8px 12px;
   font-size: 16px;
   border-radius: 12px;
-  border: 2px solid #a1887f; /* visible border */
+  border: 2px solid #a1887f;
   outline: none;
   width: 180px;
-  background-color: #fff8f0; /* soft cream input */
+  background-color: #fff8f0;
   color: #3e2723;
   transition: border 0.3s, box-shadow 0.3s;
 }
@@ -158,13 +157,41 @@ html {
 
 /* ============================= */
 /* PRODUCTS SECTION */
+.products-section-container {
+  padding-top: 10px; /* moved slightly up from before */
+  padding-bottom: 60px;
+}
+
+.add-product-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.add-product-btn {
+  padding: 10px 22px;
+  background-color: #6d4c41;
+  color: #fff8f0;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.add-product-btn:hover {
+  background-color: #5d4037;
+  transform: translateY(-2px);
+}
+
 .products {
-  padding: 80px 30px; /* increased top and bottom padding for spacing */
   display: flex;
   gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: #f5f1ea; /* optional: keep same as container or make subtle color difference */
+  background-color: #f5f1ea;
+  position: relative;
+  top: -20px; /* lifts all products slightly up */
 }
 
 .product {
@@ -219,25 +246,25 @@ html {
   font-weight: 600;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #3e2723;
-  margin-bottom: 40px; /* space before products */
+  margin-bottom: 30px;
 }
 
-/* Add Product Button */
-.add-product-btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background-color: #6d4c41;
+
+.product .delete-btn {
+  margin-top: 8px;
+  text-align: center;
+  padding: 8px 14px;
+  background-color: #d32f2f;
   color: #fff8f0;
-  font-weight: 600;
-  border-radius: 12px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: 0.3s;
 }
 
-.add-product-btn:hover {
-  background-color: #5d4037;
-  transform: translateY(-3px);
+.product .delete-btn:hover {
+  background-color: #b71c1c;
 }
+
 
 
 /* ============================= */
@@ -334,19 +361,17 @@ html {
 }
 
 /* ============================= */
-/* ============================= */
-/* ============================= */
 /* CONTACT SECTION */
 .contact {
-  padding: 40px 20px 20px; /* more top padding for distance from About */
-  background-color: #444242; /* checkpoint color for visual separation */
-  text-align: center; /* center the content */
+  padding: 40px 20px 20px;
+  background-color: #444242;
+  text-align: center;
 }
 
 .contact h3 {
   font-size: 28px;
-  color: #fff8f0; /* contrast text color */
-  margin-bottom: 40px; /* extra space before contact info */
+  color: #fff8f0;
+  margin-bottom: 40px;
   font-weight: 600;
 }
 
@@ -357,7 +382,7 @@ html {
 
 .contact-info p {
   font-size: 18px;
-  color: #fff8f0; /* readable on checkpoint background */
+  color: #fff8f0;
   margin: 16px 0;
   display: flex;
   align-items: center;
@@ -371,7 +396,7 @@ html {
 }
 
 .contact-info i:hover {
-  color: #a8a8a8; /* subtle hover highlight */
+  color: #a8a8a8;
   transform: scale(1.2);
 }
 
@@ -383,10 +408,9 @@ html {
 }
 
 .contact-info a:hover {
-  color: #95d89a; /* hover highlight */
+  color: #95d89a;
   text-decoration: underline;
 }
-
 
 /* ============================= */
 /* RESPONSIVE */
