@@ -407,3 +407,199 @@ html {
   color: #95d89a;
   text-decoration: underline;
 }
+
+/* ============================= */
+/* MANAGE CATEGORIES */
+.category-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #fff8f0;
+  border-radius: 12px;
+  border: 1px solid #8d6e63;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.category-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #3e2723;
+  font-weight: 600;
+}
+
+.category-container form input,
+.category-container form textarea,
+.category-container form button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #8d6e63;
+  font-size: 16px;
+}
+
+.category-container form button {
+  background-color: #6d4c41;
+  color: #fff8f0;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category-container form button:hover {
+  background-color: #5d4037;
+}
+
+.category-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.category-container table,
+.category-container th,
+.category-container td {
+  border: 1px solid #8d6e63;
+}
+
+.category-container th,
+.category-container td {
+  padding: 10px;
+  text-align: left;
+  color: #3e2723;
+}
+
+.category-container td {
+  font-size: 16px;
+}
+
+.category-container a.delete-btn {
+  background-color: #d32f2f;
+  color: #fff8f0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.category-container a.delete-btn:hover {
+  background-color: #b71c1c;
+}
+
+/* ============================= */
+/* ORDERS TABLE STYLES */
+.orders-table {
+    width: 90%;
+    margin: 0 auto 50px;
+    border-collapse: collapse;
+    background-color: #fff8f0;
+    border: 1px solid #8d6e63;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #d7ccc8;
+    color: #3e2723;
+}
+
+.orders-table th {
+    background-color: #6d4c41;
+    color: #fff8f0;
+    font-weight: 600;
+}
+
+.orders-table tr:hover {
+    background-color: #f1e7de;
+}
+
+.view-order-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: #6d4c41;
+    color: #fff8f0;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.view-order-btn:hover {
+    background-color: #5d4037;
+}
+
+/* ============================= */
+/* ADD TO CART BUTTON */
+.add-cart-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #95d89a, #6dcb6d);
+    color: #fff8f0;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.add-cart-btn i {
+    font-size: 18px;
+}
+
+.add-cart-btn:hover {
+    background: linear-gradient(135deg, #7cc17c, #5ba75a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(101, 67, 33, 0.3);
+}
+
+/* ============================= */
+/* CUSTOMER DROPDOWN STYLES */
+.product select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #8d6e63; /* coffee brown border */
+  font-size: 16px;
+  color: #3e2723;
+  background-color: #fff8f0; /* same as product card */
+  cursor: pointer;
+  transition: border 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.product select:focus {
+  border-color: #6d4c41; /* darker coffee on focus */
+  box-shadow: 0 0 5px rgba(101, 67, 33, 0.4);
+  outline: none;
+}
+
+.product select option {
+  background-color: #fff8f0;
+  color: #3e2723;
+}
+
+/* Add hover effect for dropdown itself */
+.product select:hover {
+  background-color: #f1e7de; /* slight highlight */
+}
+
+.delete-order-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #d32f2f;
+  color: #fff8f0;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.delete-order-btn:hover {
+  background-color: #b71c1c;
+}
