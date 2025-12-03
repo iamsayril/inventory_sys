@@ -1,0 +1,452 @@
+/* ============================= */
+/* GLOBAL RESET AND BASE */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth; /* smooth scroll for nav links */
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f1ea; /* soft cream background */
+}
+
+/* ============================= */
+/* NAVIGATION */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #6d4c41; /* coffee brown */
+  border-bottom: 2px solid #5d4037;
+  position: relative;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-logo h1 {
+  font-size: 24px;
+  color: #fff8f0;
+  font-weight: 600;
+}
+
+/* center the nav links */
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #fff8f0;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #d7ccc8;
+}
+
+.nav-search {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-search input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 2px solid #a1887f; /* visible border */
+  outline: none;
+  width: 180px;
+  background-color: #fff8f0; /* soft cream input */
+  color: #3e2723;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.nav-search input:focus {
+  border-color: #5d4037;
+  box-shadow: 0 0 5px rgba(101, 67, 33, 0.4);
+}
+
+.nav-search button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #6d4c41;
+  color: #fff8f0;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-search button:hover {
+  background-color: #5d4037;
+}
+
+/* ============================= */
+/* HERO SECTION */
+.hero {
+  display: flex;
+  height: 70vh;
+  padding: 0 80px;
+  background-color: #d7ccc8;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-intro h1 {
+  font-size: 48px;
+  color: #3e2723;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.hero-intro button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #6d4c41;
+  color: #fff8f0;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+}
+
+.hero-intro button:hover {
+  background-color: #5d4037;
+}
+
+.hero-image {
+  flex: 1;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* ============================= */
+/* PRODUCTS SECTION */
+.products {
+  padding: 80px 30px; /* increased top and bottom padding for spacing */
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #f5f1ea; /* optional: keep same as container or make subtle color difference */
+}
+
+.product {
+  width: 280px;
+  min-height: 12rem;
+  padding: 1rem 1.2rem;
+  background-color: #fff8f0;
+  border-radius: 12px;
+  border: 1px solid #8d6e63;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(101, 67, 33, 0.3);
+}
+
+.product h4 {
+  color: #3e2723;
+  font-weight: 600;
+}
+
+.product p {
+  color: #5d4037;
+  font-size: 16px;
+}
+
+.product a.edit-btn {
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 14px;
+  background-color: #6d4c41;
+  color: #fff8f0;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.product a.edit-btn:hover {
+  background-color: #5d4037;
+}
+
+.products::before {
+  content: "Our Coffee";
+  display: block;
+  width: 100%;
+  text-align: justify;
+  font-size: 40px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3e2723;
+  margin-bottom: 40px; /* space before products */
+}
+
+/* Add Product Button */
+.add-product-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #6d4c41;
+  color: #fff8f0;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-product-btn:hover {
+  background-color: #5d4037;
+  transform: translateY(-3px);
+}
+
+
+/* ============================= */
+/* EDIT FORM STYLES */
+.edit-form {
+  width: 420px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #fff8f0;
+  border-radius: 12px;
+  border: 1px solid #8d6e63;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.edit-form h2 {
+  text-align: center;
+  color: #3e2723;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.edit-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #5d4037;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #8d6e63;
+  font-size: 16px;
+}
+
+.edit-form textarea {
+  resize: none;
+}
+
+.edit-form button {
+  background-color: #6d4c41;
+  color: #fff8f0;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-form button:hover {
+  background-color: #5d4037;
+}
+
+/* ============================= */
+/* ABOUT SECTION */
+.about {
+  padding: 100px 40px;
+  background-color: #d7ccc8;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.about .about-box {
+  background-color: #fff8f0;
+  padding: 35px 25px;
+  border-radius: 15px;
+  border: 1px solid #8d6e63;
+  width: 330px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.about .about-box:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 12px 25px rgba(101, 67, 33, 0.3);
+  background-color: #f1e7de;
+}
+
+.about .about-box h3 {
+  color: #3e2723;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.about .about-box p {
+  color: #5d4037;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* ============================= */
+/* ============================= */
+/* ============================= */
+/* CONTACT SECTION */
+.contact {
+  padding: 40px 20px 20px; /* more top padding for distance from About */
+  background-color: #444242; /* checkpoint color for visual separation */
+  text-align: center; /* center the content */
+}
+
+.contact h3 {
+  font-size: 28px;
+  color: #fff8f0; /* contrast text color */
+  margin-bottom: 40px; /* extra space before contact info */
+  font-weight: 600;
+}
+
+.contact-info {
+  display: inline-block;
+  text-align: left;
+}
+
+.contact-info p {
+  font-size: 18px;
+  color: #fff8f0; /* readable on checkpoint background */
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-info i {
+  color: #fff8f0;
+  font-size: 22px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.contact-info i:hover {
+  color: #a8a8a8; /* subtle hover highlight */
+  transform: scale(1.2);
+}
+
+.contact-info a {
+  color: #fff8f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.contact-info a:hover {
+  color: #95d89a; /* hover highlight */
+  text-decoration: underline;
+}
+
+
+/* ============================= */
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 20px;
+    height: auto;
+  }
+
+  .hero-image {
+    margin-top: 20px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .nav-links {
+    position: static;
+    transform: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .nav-search {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .nav-search input {
+    width: 70%;
+  }
+
+  .products {
+    padding: 30px 20px;
+  }
+
+  .edit-form {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .about {
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+  }
+
+  .about .about-box {
+    width: 90%;
+  }
+
+  .contact-box {
+    width: 90%;
+    padding: 30px 20px;
+  }
+}
