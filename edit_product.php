@@ -26,7 +26,7 @@ $product = $result->fetch_assoc();
 if (isset($_POST['update'])) {
     $name = $_POST['product_name'];
     $price = $_POST['price'];
-    $quantity = $_POST['quantity'];
+    $stock = $_POST['stock'];
 
     // IMAGE UPLOAD
     $img_name = $product['prod_img']; // default to existing image
@@ -44,20 +44,22 @@ if (isset($_POST['update'])) {
         }
     }
 
-    // Update query
-    $update_sql = "UPDATE products SET product_name=?, price=?, quantity=?, prod_img=? WHERE product_id=?";
-    $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bind_param("sdssi", $name, $price, $quantity, $img_name, $product_id);
+    /// Update query
+$update_sql = "UPDATE products SET product_name=?, price=?, stock=?, prod_img=? WHERE product_id=?";
+$update_stmt = $conn->prepare($update_sql);
+$update_stmt->bind_param("sdssi", $name, $price, $stock, $img_name, $product_id);
 
-    if ($update_stmt->execute()) {
-        echo "<p style='color:green; text-align:center;'>Product updated successfully! <a href='index.php'>Go Back</a></p>";
-        $product['product_name'] = $name;
-        $product['price'] = $price;
-        $product['quantity'] = $quantity;
-        $product['prod_img'] = $img_name;
-    } else {
-        echo "<p style='color:red; text-align:center;'>Error updating product: " . $conn->error . "</p>";
-    }
+if ($update_stmt->execute()) {
+    // Alert instead of inline text
+    echo "<script>
+            alert('Product updated successfully!');
+            window.location.href = 'index.php';
+          </script>";
+    exit;
+} else {
+    echo "<p style='color:red; text-align:center;'>Error updating product: " . $conn->error . "</p>";
+}
+
 }
 ?>
 
@@ -80,8 +82,8 @@ if (isset($_POST['update'])) {
         <label for="price">Price</label>
         <input type="number" step="0.01" name="price" id="price" value="<?php echo $product['price']; ?>" required>
 
-        <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" id="quantity" value="<?php echo $product['quantity']; ?>" required>
+        <label for="stock">Stock</label>
+        <input type="number" name="stock" id="stock" value="<?php echo $product['stock']; ?>" required>
 
         <label for="prod_img">Product Image</label>
         <?php if (!empty($product['prod_img']) && file_exists('uploads/' . $product['prod_img'])): ?>

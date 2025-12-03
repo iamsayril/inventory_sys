@@ -21,11 +21,11 @@ $errors = [];
 if (isset($_POST['submit'])) {
     $product_name = trim($_POST['product_name'] ?? '');
     $price = trim($_POST['price'] ?? '');
-    $quantity = trim($_POST['quantity'] ?? '');
+    $stock = trim($_POST['stock'] ?? '');
 
     // Basic validation
-    if ($product_name === '' || $price === '' || $quantity === '') {
-        $errors[] = "Please fill in all required fields (name, price, quantity).";
+    if ($product_name === '' || $price === '' || $stock === '') {
+        $errors[] = "Please fill in all required fields (name, price, stock).";
     }
 
     // Validate file upload exists
@@ -79,16 +79,19 @@ if (isset($_POST['submit'])) {
             $errors[] = "Failed to move uploaded file to target directory. Check directory permissions for '{$upload_dir}'.";
         } else {
             // Insert into DB using prepared statement (prod_img stores filename)
-            $stmt = $conn->prepare("INSERT INTO products (product_name, price, quantity, prod_img) VALUES (?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO products (product_name, price, stock, prod_img) VALUES (?, ?, ?, ?)");
             if (!$stmt) {
                 $errors[] = "DB prepare failed: " . $conn->error;
                 // Optionally unlink uploaded file on DB failure:
                 @unlink($target_path);
             } else {
-                $stmt->bind_param("sdis", $product_name, $price, $quantity, $safe_name);
+                $stmt->bind_param("sdis", $product_name, $price, $stock, $safe_name);
                 if ($stmt->execute()) {
                     // Success: redirect back to index
-                    header("Location: index.php#coffee-section");
+                    echo "<script>
+            alert('Product added successfully!');
+            window.location.href = 'index.php#coffee-section';
+          </script>";
                     exit;
                 } else {
                     $errors[] = "DB execute failed: " . $stmt->error;
@@ -128,8 +131,8 @@ if (isset($_POST['submit'])) {
       <label for="price">Price (₱):</label>
       <input type="number" name="price" id="price" step="0.01" required value="<?php echo htmlspecialchars($_POST['price'] ?? ''); ?>">
 
-      <label for="quantity">Quantity:</label>
-      <input type="number" name="quantity" id="quantity" required value="<?php echo htmlspecialchars($_POST['quantity'] ?? ''); ?>">
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" id="stock" required value="<?php echo htmlspecialchars($_POST['stock'] ?? ''); ?>">
 
       <label for="prod_img">Upload Image:</label>
       <input type="file" name="prod_img" id="prod_img" accept="image/*" required>

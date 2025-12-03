@@ -38,12 +38,10 @@ if (isset($_GET['delete'])) {
     </div>
     <div class="nav-links">
       <a href="#coffee-section">Coffee</a>
+      <a href="#">Orders</a>
+      <a href="#">Manage Categories</a>
       <a href="#about-section">About</a>
       <a href="#contact-section">Contact</a>
-    </div>
-    <div class="nav-search">
-      <input type="text" placeholder="Search">
-      <button>Search</button>
     </div>
   </nav>
 
@@ -78,18 +76,15 @@ if (isset($_GET['delete'])) {
 
             echo "<div class='product'>";
 
-            // PRODUCT IMAGE (top)
-           if (!empty($row['prod_img']) && file_exists('uploads/' . $row['prod_img'])) {
-    echo "<img src='uploads/" . htmlspecialchars($row['prod_img']) . "'
-            alt='Product Image'
-            style='width:100%; height:200px; object-fit:cover; border-radius:10px; margin-bottom:12px;'>";
-} else {
-    echo "<div style='width:100%; height:200px; background:#ccc; border-radius:10px; 
-            display:flex; align-items:center; justify-content:center; color:#555;'>
-            No Image
-          </div>";
-}
-
+            // PRODUCT IMAGE
+            if (!empty($row['prod_img']) && file_exists('uploads/' . $row['prod_img'])) {
+                echo "<img src='uploads/" . htmlspecialchars($row['prod_img']) . "' 
+                      alt='Product Image' 
+                      style='width:100%; height:200px; object-fit:cover; border-radius:10px; margin-bottom:12px;'>";
+            } else {
+                echo "<div style='width:100%; height:200px; background:#ccc; border-radius:10px; 
+                      display:flex; align-items:center; justify-content:center; color:#555;'>No Image</div>";
+            }
 
             // PRODUCT NAME
             echo "<h4>" . htmlspecialchars($row['product_name']) . "</h4>";
@@ -97,18 +92,17 @@ if (isset($_GET['delete'])) {
             // PRODUCT PRICE
             echo "<p>₱" . htmlspecialchars($row['price']) . "</p>";
 
-            // PRODUCT QUANTITY
-            echo "<p>Stock: " . htmlspecialchars($row['quantity']) . "</p>";
+            // PRODUCT STOCK
+            echo "<p>Stock: " . htmlspecialchars($row['stock']) . "</p>";
+
+            // PRODUCT CATEGORY
+            echo "<p>Category: " . (!empty($row['category']) ? htmlspecialchars($row['category']) : 'None') . "</p>";
 
             // ACTION BUTTONS
             echo "
                 <a href='edit_product.php?product_id=" . $row['product_id'] . "' class='edit-btn'>Edit</a>
-
-                <a href='index.php?delete=" . $row['product_id'] . "'
-                   class='delete-btn'
-                   onclick='return confirm(\"Are you sure you want to delete this product?\");'>
-                   Delete
-                </a>
+                <a href='index.php?delete=" . $row['product_id'] . "' class='delete-btn' 
+                   onclick='return confirm(\"Are you sure you want to delete this product?\");'>Delete</a>
             ";
 
             echo "</div>";
