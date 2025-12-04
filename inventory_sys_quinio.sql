@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2025 at 04:45 AM
+-- Generation Time: Dec 04, 2025 at 03:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,8 +65,9 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `full_name`, `email`, `phone`, `created_at`) VALUES
-(7, 'Pogi Mark', 'pogi@gmail.com', '123', '2025-12-04 10:58:16'),
-(8, 'Eric Santos', 'shi@gmail.com', '12345', '2025-12-04 11:05:05');
+(7, 'Mark Cyrell D. Quinio', 'markcyrellquinio.202400987@gmail.com', '09163308434', '2025-12-04 10:58:16'),
+(10, 'Mark Gwapz', 'markcyrellquinio@gmail.com', '09817099396', '2025-12-04 20:17:12'),
+(13, 'Kristy GODZ', 'kristy@gmail.com', '1234567', '2025-12-04 21:48:42');
 
 -- --------------------------------------------------------
 
@@ -86,8 +87,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `total_price`, `order_date`) VALUES
-(14, 8, 55.00, '2025-12-04 04:15:11'),
-(15, 7, 45.00, '2025-12-04 04:19:06');
+(19, 7, 147.00, '2025-12-04 14:46:26'),
+(20, 13, 49.00, '2025-12-04 15:02:56');
 
 -- --------------------------------------------------------
 
@@ -108,9 +109,8 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price_each`) VALUES
-(24, 14, 18, 1, 45.00),
-(25, 15, 18, 1, 45.00),
-(26, 14, 19, 1, 10.00);
+(35, 19, 15, 3, 49.00),
+(36, 20, 21, 1, 49.00);
 
 -- --------------------------------------------------------
 
@@ -124,17 +124,18 @@ CREATE TABLE `products` (
   `prod_img` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT NULL
+  `category_id` int(11) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `product_name`, `prod_img`, `price`, `stock`, `category_id`) VALUES
-(15, 'Barako Coffee', '1764753493_latte-coffee-cup.jpg', 49.00, 0, NULL),
-(18, 'Iced Coffee - Milktea', '1764774338_0013446_italian-iced-coffee.jpeg.jpg', 45.00, 2, 6),
-(19, 'Kopiko Black', '1764813949_0013446_italian-iced-coffee.jpeg.jpg', 10.00, 8, 5);
+INSERT INTO `products` (`product_id`, `product_name`, `prod_img`, `price`, `stock`, `category_id`, `quantity`) VALUES
+(15, 'Barako Coffee', 'latte-coffee-cup.jpg', 49.00, 76, 3, 0),
+(20, 'Kopiko', '1764844248_0013446_italian-iced-coffee.jpeg.jpg', 49.00, 47, 1, 0),
+(21, 'Barako Coffee', '1764844580_mehmet-talha-onuk-MBeY2m00Ybc-unsplash.jpg', 49.00, 48, 3, 0);
 
 --
 -- Indexes for dumped tables
@@ -189,25 +190,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

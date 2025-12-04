@@ -1,8 +1,13 @@
 <?php
 include 'database.php';
+session_start();
 
+// Determine customer to use for this add-to-order action.
+// Priority: POSTed `customer_id` -> session `active_customer` -> first customer fallback.
 if (isset($_POST['customer_id']) && !empty($_POST['customer_id'])) {
     $customer_id = intval($_POST['customer_id']);
+} elseif (isset($_SESSION['active_customer']) && !empty($_SESSION['active_customer'])) {
+    $customer_id = intval($_SESSION['active_customer']);
 } else {
     $stmtFirstCust = $conn->query("SELECT customer_id FROM customers ORDER BY customer_id ASC LIMIT 1");
     if ($stmtFirstCust && $stmtFirstCust->num_rows > 0) {
@@ -51,22 +56,15 @@ if (isset($_POST['product_id'], $_POST['price_each'])) {
         exit;
     }
 
-    $today = date('Y-m-d');
-    $stmt = $conn->prepare("SELECT order_id FROM orders WHERE customer_id = ? AND DATE(order_date) = ?");
-    $stmt->bind_param("is", $customer_id, $today);
+    // Create a new order each time (so each add-to-cart is a separate order)
+    // Set status as 'draft' so it doesn't appear in Placed Orders yet
+    $order_date = date('Y-m-d H:i:s');
+    $order_status = 'draft';
+    $stmt = $conn->prepare("INSERT INTO orders (customer_id, total_price, order_date, order_status) VALUES (?, 0, ?, ?)");
+    $stmt->bind_param("iss", $customer_id, $order_date, $order_status);
     $stmt->execute();
-    $stmt->bind_result($order_id);
-    $stmt->fetch();
+    $order_id = $stmt->insert_id;
     $stmt->close();
-
-    if (!$order_id) {
-        $order_date = date('Y-m-d H:i:s');
-        $stmt = $conn->prepare("INSERT INTO orders (customer_id, total_price, order_date) VALUES (?, 0, ?)");
-        $stmt->bind_param("is", $customer_id, $order_date);
-        $stmt->execute();
-        $order_id = $stmt->insert_id;
-        $stmt->close();
-    }
 
     $stmt2 = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price_each) VALUES (?, ?, ?, ?)");
     $stmt2->bind_param("iiid", $order_id, $product_id, $quantity, $price_each);

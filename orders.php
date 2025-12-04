@@ -1,5 +1,6 @@
 <?php
 include 'database.php';
+session_start();
 
 if (isset($_POST['update_customer'])) {
     $order_id = intval($_POST['order_id']);
@@ -8,6 +9,8 @@ if (isset($_POST['update_customer'])) {
     $stmt->bind_param("ii", $customer_id, $order_id);
     $stmt->execute();
     $stmt->close();
+    // remember the last selected customer so add-to-cart can use it
+    $_SESSION['active_customer'] = $customer_id;
 }
 
 if (isset($_POST['update_item_quantity'])) {
@@ -31,6 +34,7 @@ if (isset($_POST['update_item_quantity'])) {
 $sql = "SELECT o.order_id, o.customer_id, c.full_name, o.order_date, o.total_price
         FROM orders o
         JOIN customers c ON o.customer_id = c.customer_id
+        WHERE o.order_status = 'draft'
         ORDER BY o.order_id DESC";
 
 $result = $conn->query($sql);
@@ -69,6 +73,7 @@ if ($customers_result && $customers_result->num_rows > 0) {
             <div class="nav-links">
                 <a href="index.php">Coffee</a>
                 <a href="orders.php" class="active">Orders</a>
+                <a href="view_orders.php">Placed Orders</a>
                 <a href="customers.php">Customers</a>
                 <a href="manage_categories.php">Manage Categories</a>
             </div>

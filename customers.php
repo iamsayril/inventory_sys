@@ -107,11 +107,28 @@ if (isset($_GET['edit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers - CyreCafé</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="customers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<div class="customers-container">
+<div class="container">
+    <nav class="nav">
+        <div class="nav-logo">
+            <img src="uploads/cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
+            <h1>CyreCafé</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.php">Coffee</a>
+            <a href="orders.php">Orders</a>
+            <a href="view_orders.php">Placed Orders</a>
+            <a href="customers.php" class="active">Customers</a>
+            <a href="manage_categories.php">Manage Categories</a>
+        </div>
+    </nav>
+
+    <div class="customers-container">
     <h2>Manage Customers</h2>
 
     <?php if (isset($_SESSION['flash'])): $f = $_SESSION['flash']; unset($_SESSION['flash']); ?>
@@ -169,6 +186,7 @@ if (isset($_GET['edit'])) {
         <?php endwhile; ?>
         </tbody>
     </table>
+</div>
 </div>
 
 </body>

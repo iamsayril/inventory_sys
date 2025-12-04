@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'database.php';
 
 if (isset($_GET['delete'])) {
@@ -51,6 +52,8 @@ if (isset($_GET['delete'])) {
       <a href="#contact-section">Contact</a>
     </div>
   </nav>
+  
+  
 
   <section class="hero">
     <div class="hero-intro">
@@ -143,28 +146,108 @@ if (isset($_GET['delete'])) {
 
 
   <section class="about" id="about-section">
-    <div class="about-box">
-      <h3>Our Mission</h3>
-      <p>To provide the freshest coffee and high-quality inventory management for our café, ensuring every cup is perfect.</p>
+    <div class="about-header">
+      <h2>About CyreCafé</h2>
+      <p class="about-subtitle">Excellence in Coffee & Inventory Management</p>
     </div>
-    <div class="about-box">
-      <h3>Inventory System</h3>
-      <p>This system allows staff to easily track products, manage stock, and update prices efficiently in real time.</p>
+    
+    <div class="about-container">
+      <div class="about-box">
+        <div class="about-icon">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3>Our Mission</h3>
+        <p>To deliver premium quality coffee paired with intelligent inventory management, ensuring operational excellence and customer satisfaction at every touchpoint.</p>
+      </div>
+      
+      <div class="about-box">
+        <div class="about-icon">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <h3>Smart Inventory System</h3>
+        <p>Our integrated system empowers staff to track products in real-time, manage stock levels effortlessly, and optimize pricing strategies for maximum efficiency and profitability.</p>
+      </div>
+      
+      <div class="about-box">
+        <div class="about-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3>Why Choose Us</h3>
+        <p>We blend passion for exceptional coffee with cutting-edge technology, transforming café operations into a seamless, data-driven experience that delights both staff and customers.</p>
+      </div>
     </div>
-    <div class="about-box">
-      <h3>Why CyreCafé?</h3>
-      <p>We combine the love of coffee with smart inventory solutions to enhance your café’s operational workflow.</p>
+
+    <div class="about-features">
+      <h3 style="text-align: center; margin-bottom: 30px; color: #3e2723; font-size: 24px; font-weight: 700;">Key Features</h3>
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Real-time Inventory Tracking</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Automated Stock Alerts</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Order Management</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Customer Database</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Category Organization</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Price Management</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="contact" id="contact-section">
-    <h3>Contact Us</h3>
-    <div class="contact-info">
-      <p><i class="fab fa-facebook-square"></i>
-        <a href="https://www.facebook.com/acadsphere.quinio" target="_blank">Mark Cyrell Quinio</a></p>
+    <div class="contact-header">
+      <h2>Get In Touch</h2>
+      <p class="contact-subtitle">We'd love to hear from you. Reach out with any questions or inquiries.</p>
+    </div>
 
-      <p><i class="fas fa-envelope"></i>
-        <a href="mailto:markcyrellquinio@gmail.com">markcyrellquinio@gmail.com</a></p>
+    <div class="contact-container">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <h3>Email Us</h3>
+        <p class="contact-description">Send us your inquiries and we'll respond promptly.</p>
+        <a href="mailto:markcyrellquinio@gmail.com" class="contact-link">
+          <i class="fas fa-arrow-right"></i> markcyrellquinio@gmail.com
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fab fa-facebook"></i>
+        </div>
+        <h3>Follow Us</h3>
+        <p class="contact-description">Connect with us on social media for updates.</p>
+        <a href="https://www.facebook.com/acadsphere.quinio" target="_blank" class="contact-link">
+          <i class="fas fa-arrow-right"></i> Mark Cyrell Quinio
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <h3>About CyreCafé</h3>
+        <p class="contact-description">Visit us for premium coffee and excellent service.</p>
+        <p style="color: #999; font-size: 14px; margin-top: 15px;">
+          <i class="fas fa-map-marker-alt" style="color: #26a69a; margin-right: 5px;"></i>
+          Your Coffee Destination
+        </p>
+      </div>
     </div>
   </section>
 

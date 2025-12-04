@@ -68,10 +68,26 @@ if (isset($_POST['submit'])) {
   <title>Add Product - CyreCafé</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="add_product.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="container" style="padding-top: 40px;">
-    <h2 style="text-align:center; margin:0 0 30px 0;">Add New Product</h2>
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-logo">
+        <img src="uploads/cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
+        <h1>CyreCafé</h1>
+      </div>
+      <div class="nav-links">
+        <a href="index.php">Coffee</a>
+        <a href="orders.php">Orders</a>
+        <a href="view_orders.php">Placed Orders</a>
+        <a href="customers.php">Customers</a>
+        <a href="manage_categories.php">Manage Categories</a>
+      </div>
+    </nav>
+
+    <div style="padding-top: 40px;">
+      <h2 style="text-align:center; margin:0 0 30px 0;">Add New Product</h2>
 
     <?php if (!empty($errors)): ?>
       <div style="max-width:700px;margin:0 auto 20px;padding:12px;background:#ffe6e6;color:#900;border-radius:8px;">
@@ -106,6 +122,7 @@ if (isset($_POST['submit'])) {
 
       <button type="submit" name="submit">Add Product</button>
     </form>
+    </div>
   </div>
 </body>
 </html>
