@@ -1,5 +1,3 @@
-/* ============================= */
-/* GLOBAL RESET AND BASE */
 * {
   padding: 0;
   margin: 0;
@@ -14,19 +12,19 @@ html {
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f1ea; /* soft cream background */
+  background-color: #f5f1ea;
 }
 
-/* ============================= */
-/* NAVIGATION */
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
-  background-color: #6d4c41; /* coffee brown */
-  border-bottom: 2px solid #5d4037;
+  background-color: #f5f1ea;
+  border-bottom: 2px solid #d7ccc8;
   position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
 }
 
 .nav-logo {
@@ -42,26 +40,53 @@ html {
 
 .nav-logo h1 {
   font-size: 30px;
-  color: #fff8f0;
-  font-weight: 600;
+  color: #3e2723; 
+  font-weight: 700;
 }
 
 .nav-links {
   display: flex;
   gap: 25px;
-  margin-left: auto; /* aligns to the right */
+  margin-left: auto;
 }
 
 .nav-links a {
-  color: #fff8f0;
+  position: relative;
+  color: #3e2723;
   text-decoration: none;
   font-size: 18px;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(135deg, #95d89a, #6dcb6d);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .nav-links a:hover {
-  color: #d7ccc8;
+  color: #5d4037;
+  background-color: #f1e7de;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(101, 67, 33, 0.15);
+}
+
+.nav-links a.active {
+  color: #5ba75a;
+  font-weight: 700;
 }
 
 .nav-search {
@@ -94,15 +119,15 @@ html {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .nav-search button:hover {
   background-color: #5d4037;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(101, 67, 33, 0.2);
 }
 
-/* ============================= */
-/* HERO SECTION */
 .hero {
   display: flex;
   height: 70vh;
@@ -153,8 +178,6 @@ html {
   border-radius: 15px;
 }
 
-/* ============================= */
-/* PRODUCTS SECTION */
 .products-section-container {
   padding-top: 10px;
   padding-bottom: 60px;
@@ -175,7 +198,7 @@ html {
   border-radius: 12px;
   text-decoration: none;
   transition: 0.3s;
-  margin-right: 150px; /* moves slightly left from the right edge */
+  margin-right: 320px;
 }
 
 .add-product-btn:hover {
@@ -253,18 +276,15 @@ html {
   content: "Our Coffee";
   display: block;
   width: 100%;
-  text-align: center; /* centers the heading */
+  text-align: center;
   font-size: 40px;
   font-weight: 600;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #3e2723;
-  margin: 20px 0 30px 0; /* 20px top margin, 30px bottom */
+  margin: 20px 0 30px 0;
 }
 
 
-
-/* ============================= */
-/* EDIT FORM STYLES */
 .edit-form {
   width: 420px;
   margin: 50px auto;
@@ -316,8 +336,6 @@ html {
   background-color: #5d4037;
 }
 
-/* ============================= */
-/* ABOUT SECTION */
 .about {
   padding: 100px 40px;
   background-color: #d7ccc8;
@@ -356,8 +374,6 @@ html {
   line-height: 1.5;
 }
 
-/* ============================= */
-/* CONTACT SECTION */
 .contact {
   padding: 40px 20px 20px;
   background-color: #444242;
@@ -408,8 +424,6 @@ html {
   text-decoration: underline;
 }
 
-/* ============================= */
-/* MANAGE CATEGORIES */
 .category-container {
   max-width: 700px;
   margin: 50px auto;
@@ -487,29 +501,45 @@ html {
   background-color: #b71c1c;
 }
 
-/* ============================= */
-/* ORDERS TABLE STYLES */
-.orders-table {
-    width: 90%;
-    margin: 0 auto 50px;
-    border-collapse: collapse;
+.orders-container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 30px;
     background-color: #fff8f0;
-    border: 1px solid #8d6e63;
-    border-radius: 12px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border: 1px solid #d7ccc8;
+}
+
+.orders-container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #3e2723;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .orders-table th,
 .orders-table td {
-    padding: 12px 15px;
+    padding: 16px 18px;
     text-align: left;
+    vertical-align: middle;
     border-bottom: 1px solid #d7ccc8;
     color: #3e2723;
+    font-size: 15px;
+    transition: all 0.3s;
 }
 
 .orders-table th {
-    background-color: #6d4c41;
+    background-color: #ac8679;
     color: #fff8f0;
     font-weight: 600;
 }
@@ -518,22 +548,59 @@ html {
     background-color: #f1e7de;
 }
 
-.view-order-btn {
+.view-order-btn,
+.delete-order-btn {
     display: inline-block;
-    padding: 6px 14px;
-    background-color: #6d4c41;
-    color: #fff8f0;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 10px;
     text-decoration: none;
-    transition: 0.3s;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-right: 6px;
+}
+
+.view-order-btn {
+    background: linear-gradient(135deg, #6d4c41);
+    color: #fff8f0;
 }
 
 .view-order-btn:hover {
-    background-color: #5d4037;
+    background: linear-gradient(135deg, #6d4c41);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(101, 67, 33, 0.2);
 }
 
-/* ============================= */
-/* ADD TO CART BUTTON */
+.delete-order-btn {
+    background: linear-gradient(135deg, #d32f2f);
+    color: #fff8f0;
+}
+
+.delete-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+}
+
+.no-orders {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    color: #5d4037;
+}
+
+@media (max-width: 768px) {
+    .orders-table th,
+    .orders-table td {
+        font-size: 14px;
+        padding: 12px 10px;
+    }
+
+    .orders-container {
+        padding: 20px;
+        margin: 30px auto;
+    }
+}
+
 .add-cart-btn {
     margin-top: 12px;
     width: 100%;
@@ -562,21 +629,19 @@ html {
     box-shadow: 0 4px 12px rgba(101, 67, 33, 0.3);
 }
 
-/* ============================= */
-/* CUSTOMER DROPDOWN STYLES */
 .product select {
   padding: 8px 12px;
   border-radius: 10px;
-  border: 1px solid #8d6e63; /* coffee brown border */
+  border: 1px solid #8d6e63;
   font-size: 16px;
   color: #3e2723;
-  background-color: #fff8f0; /* same as product card */
+  background-color: #fff8f0;
   cursor: pointer;
   transition: border 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .product select:focus {
-  border-color: #6d4c41; /* darker coffee on focus */
+  border-color: #6d4c41;
   box-shadow: 0 0 5px rgba(101, 67, 33, 0.4);
   outline: none;
 }
@@ -586,9 +651,8 @@ html {
   color: #3e2723;
 }
 
-/* Add hover effect for dropdown itself */
 .product select:hover {
-  background-color: #f1e7de; /* slight highlight */
+  background-color: #f1e7de;
 }
 
 .delete-order-btn {

@@ -1,7 +1,6 @@
 <?php
 include 'database.php';
 
-// --- ADD CATEGORY ---
 $errors = [];
 if (isset($_POST['add_category'])) {
     $category_name = trim($_POST['category_name'] ?? '');
@@ -24,7 +23,6 @@ if (isset($_POST['add_category'])) {
     }
 }
 
-// --- DELETE CATEGORY ---
 if (isset($_GET['delete'])) {
     $category_id = intval($_GET['delete']);
     $stmt = $conn->prepare("DELETE FROM categories WHERE category_id = ?");
@@ -35,7 +33,6 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// --- FETCH ALL CATEGORIES ---
 $result = $conn->query("SELECT * FROM categories ORDER BY category_id DESC");
 ?>
 
@@ -60,14 +57,12 @@ $result = $conn->query("SELECT * FROM categories ORDER BY category_id DESC");
         </div>
     <?php endif; ?>
 
-    <!-- ADD CATEGORY FORM -->
     <form method="POST">
         <input type="text" name="category_name" placeholder="Category Name" required>
         <textarea name="description" placeholder="Description (optional)" rows="3"></textarea>
         <button type="submit" name="add_category">Add Category</button>
     </form>
 
-    <!-- LIST OF CATEGORIES -->
     <table>
         <thead>
             <tr>

@@ -4,7 +4,6 @@ include 'database.php';
 if (!isset($_GET['product_id'])) { echo "No product selected."; exit; }
 $product_id = $_GET['product_id'];
 
-// Fetch product info
 $stmt = $conn->prepare("SELECT * FROM products WHERE product_id=?");
 $stmt->bind_param("i", $product_id);
 $stmt->execute();
@@ -12,7 +11,6 @@ $result = $stmt->get_result();
 if ($result->num_rows == 0) { echo "Product not found."; exit; }
 $product = $result->fetch_assoc();
 
-// Fetch categories
 $categories = $conn->query("SELECT * FROM categories ORDER BY category_name ASC");
 
 if (isset($_POST['update'])) {

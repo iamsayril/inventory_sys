@@ -2,12 +2,10 @@
 session_start();
 include 'database.php';
 
-// Initialize cart if empty
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Handle remove item
 if (isset($_POST['remove'])) {
     $prod_id = intval($_POST['remove']);
     unset($_SESSION['cart'][$prod_id]);
@@ -15,7 +13,6 @@ if (isset($_POST['remove'])) {
     exit;
 }
 
-// Handle update quantities
 if (isset($_POST['update_qty'])) {
     foreach ($_POST['qty'] as $prod_id => $qty) {
         $qty = intval($qty);
@@ -29,12 +26,10 @@ if (isset($_POST['update_qty'])) {
     exit;
 }
 
-// Handle checkout
 if (isset($_POST['checkout']) && !empty($_SESSION['cart'])) {
-    $customer_id = 1; // default, or you can select customer dynamically
+    $customer_id = 1; 
     $total_price = 0;
 
-    // Calculate total price
     foreach ($_SESSION['cart'] as $prod_id => $qty) {
         $res = $conn->query("SELECT price FROM products WHERE product_id=$prod_id");
         if ($res && $row = $res->fetch_assoc()) {
@@ -42,13 +37,11 @@ if (isset($_POST['checkout']) && !empty($_SESSION['cart'])) {
         }
     }
 
-    // Insert into orders
     $stmt = $conn->prepare("INSERT INTO orders (customer_id, total_price, order_date) VALUES (?, ?, NOW())");
     $stmt->bind_param("id", $customer_id, $total_price);
     $stmt->execute();
     $order_id = $stmt->insert_id;
 
-    // Insert into order_items
     foreach ($_SESSION['cart'] as $prod_id => $qty) {
         $res = $conn->query("SELECT price FROM products WHERE product_id=$prod_id");
         if ($res && $row = $res->fetch_assoc()) {
@@ -59,7 +52,7 @@ if (isset($_POST['checkout']) && !empty($_SESSION['cart'])) {
         }
     }
 
-    // Clear cart
+    
     $_SESSION['cart'] = [];
     echo "<script>alert('Order placed successfully!'); window.location.href='index.php';</script>";
     exit;

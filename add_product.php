@@ -1,7 +1,6 @@
 <?php
 include 'database.php';
 
-// --- Helper: show friendly errors ---
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,7 +10,6 @@ if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
 $errors = [];
 
-// Fetch categories
 $categories = $conn->query("SELECT * FROM categories ORDER BY category_name ASC");
 
 if (isset($_POST['submit'])) {

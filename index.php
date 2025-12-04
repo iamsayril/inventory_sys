@@ -1,7 +1,6 @@
 <?php
 include 'database.php';
 
-// Handle product deletion
 if (isset($_GET['delete'])) {
     $product_id = intval($_GET['delete']);
     $sql_delete = "DELETE FROM products WHERE product_id = $product_id";
@@ -29,7 +28,6 @@ if (isset($_GET['delete'])) {
 
 <div class="container">
 
-  <!-- NAVIGATION -->
   <nav class="nav">
     <div class="nav-logo">
       <img src="cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
@@ -38,13 +36,13 @@ if (isset($_GET['delete'])) {
     <div class="nav-links">
       <a href="#coffee-section">Coffee</a>
       <a href="view_orders.php">Orders</a>
+      <a href="customers.php">Customers</a>
       <a href="manage_categories.php">Manage Categories</a>
       <a href="#about-section">About</a>
       <a href="#contact-section">Contact</a>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-intro">
       <h1>Welcome to CyreCafé – savor the aroma of freshly brewed coffee in every cup.</h1>
@@ -57,16 +55,13 @@ if (isset($_GET['delete'])) {
     </div>
   </section>
 
-  <!-- PRODUCTS SECTION -->
   <section class="products" id="coffee-section">
 
-    <!-- Add Product Button -->
     <div style="width:100%; display:flex; justify-content:flex-end; margin-bottom:20px;">
       <a href="add_product.php" class="add-product-btn">Add Product</a>
     </div>
 
     <?php
-    // Fetch products with category names using JOIN
     $sql = "SELECT p.*, c.category_name 
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.category_id
@@ -77,7 +72,6 @@ if (isset($_GET['delete'])) {
         while ($row = $result->fetch_assoc()) {
             echo "<div class='product'>";
 
-            // PRODUCT IMAGE
             if (!empty($row['prod_img']) && file_exists('uploads/' . $row['prod_img'])) {
                 echo "<img src='uploads/" . htmlspecialchars($row['prod_img']) . "' 
                       alt='Product Image' 
@@ -87,26 +81,20 @@ if (isset($_GET['delete'])) {
                       display:flex; align-items:center; justify-content:center; color:#555;'>No Image</div>";
             }
 
-            // PRODUCT NAME
             echo "<h4>" . htmlspecialchars($row['product_name']) . "</h4>";
 
-            // PRODUCT PRICE
             echo "<p>₱" . htmlspecialchars($row['price']) . "</p>";
 
-            // PRODUCT STOCK
             echo "<p>Stock: " . htmlspecialchars($row['stock']) . "</p>";
 
-            // PRODUCT CATEGORY
             echo "<p>Category: " . (!empty($row['category_name']) ? htmlspecialchars($row['category_name']) : 'None') . "</p>";
 
-            // ACTION BUTTONS (Edit/Delete)
             echo "
                 <a href='edit_product.php?product_id=" . $row['product_id'] . "' class='edit-btn'>Edit</a>
                 <a href='index.php?delete=" . $row['product_id'] . "' class='delete-btn' 
                    onclick='return confirm(\"Are you sure you want to delete this product?\");'>Delete</a>
             ";
 
-            // ADD TO CART FORM WITH CUSTOMER DROPDOWN
             echo "
                 <form method='POST' action='add_to_order.php' style='margin-top:10px;'>
                     <label for='customer_id'>Select Customer:</label>
@@ -135,7 +123,6 @@ if (isset($_GET['delete'])) {
     ?>
 </section>
 
-  <!-- ABOUT SECTION -->
   <section class="about" id="about-section">
     <div class="about-box">
       <h3>Our Mission</h3>
@@ -151,7 +138,6 @@ if (isset($_GET['delete'])) {
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
   <section class="contact" id="contact-section">
     <h3>Contact Us</h3>
     <div class="contact-info">
