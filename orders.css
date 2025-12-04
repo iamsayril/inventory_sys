@@ -1,0 +1,122 @@
+.orders-container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #fff8f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border: 1px solid #d7ccc8;
+}
+
+.orders-container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #3e2723;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 16px 18px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #d7ccc8;
+    color: #3e2723;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.orders-table th {
+    background-color: #ac8679;
+    color: #fff8f0;
+    font-weight: 600;
+}
+
+.orders-table tr:hover {
+    background-color: #f1e7de;
+}
+
+.view-order-btn,
+.delete-order-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-right: 6px;
+}
+
+.view-order-btn {
+    background: linear-gradient(135deg, #8d6e63, #6d4c41);
+    color: #fff8f0;
+}
+
+.view-order-btn:hover {
+    background: linear-gradient(135deg, #6d4c41, #5d3a30);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(101, 67, 33, 0.2);
+}
+
+.delete-order-btn {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: #fff8f0;
+}
+
+.delete-order-btn:hover {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+}
+
+.no-orders {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    color: #5d4037;
+}
+
+@media (max-width: 768px) {
+    .orders-table th,
+    .orders-table td {
+        font-size: 14px;
+        padding: 12px 10px;
+    }
+
+    .orders-container {
+        padding: 20px;
+        margin: 30px auto;
+    }
+}
+
+.customer-dropdown {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #3e2723;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    min-width: 150px;
+}
+
+.customer-dropdown:hover {
+    border-color: #8d6e63;
+}
+
+.customer-dropdown:focus {
+    outline: none;
+    border-color: #6d4c41;
+    box-shadow: 0 0 5px rgba(109, 76, 65, 0.3);
+}

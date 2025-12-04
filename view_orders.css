@@ -1,0 +1,165 @@
+.orders-list-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff8f0;
+  border-radius: 12px;
+  border: 1px solid #e0d6d2;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.orders-list-container h2 {
+  text-align: center;
+  margin: 0 0 10px 0;
+  color: #3e2723;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.orders-list-container .subtitle {
+  text-align: center;
+  margin: 0 0 30px 0;
+  color: #6d4c41;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.orders-list-container .orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  background-color: #fff;
+}
+
+.orders-list-container .orders-table,
+.orders-list-container .orders-table th,
+.orders-list-container .orders-table td {
+  border: 1px solid #ddd;
+}
+
+.orders-list-container .orders-table th {
+  background-color: #f5f1ea;
+  padding: 16px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: #3e2723;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.orders-list-container .orders-table td {
+  padding: 14px;
+  color: #333;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.orders-list-container .orders-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.orders-list-container .orders-table tbody tr:hover {
+  background-color: #fffbf8;
+}
+
+.orders-list-container .orders-table tbody tr:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.orders-list-container .no-items {
+  color: #999;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.orders-list-container .action-cell {
+  text-align: center;
+  padding: 12px;
+  white-space: nowrap;
+}
+
+.orders-list-container .action-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  margin: 0 4px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+
+.orders-list-container .action-btn-view {
+  background-color: #6d4c41;
+  color: #fff;
+}
+
+.orders-list-container .action-btn-view:hover {
+  background-color: #5d3a30;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.orders-list-container .action-btn-delete {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.orders-list-container .action-btn-delete:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.empty-orders-state {
+  text-align: center;
+  padding: 50px 30px;
+  color: #999;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px dashed #ddd;
+  margin-top: 20px;
+}
+
+.empty-orders-state p {
+  margin: 12px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.empty-orders-state a {
+  color: #6d4c41;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.empty-orders-state a:hover {
+  text-decoration: underline;
+}
+
+.customer-dropdown {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #3e2723;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  min-width: 150px;
+}
+
+.customer-dropdown:hover {
+  border-color: #8d6e63;
+}
+
+.customer-dropdown:focus {
+  outline: none;
+  border-color: #6d4c41;
+  box-shadow: 0 0 5px rgba(109, 76, 65, 0.3);
+}

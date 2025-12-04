@@ -67,10 +67,11 @@ if (isset($_POST['submit'])) {
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Add Product - CyreCafé</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="add_product.css" />
 </head>
 <body>
-  <div class="container">
-    <h2 style="text-align:center; margin:30px 0;">Add New Product</h2>
+  <div class="container" style="padding-top: 40px;">
+    <h2 style="text-align:center; margin:0 0 30px 0;">Add New Product</h2>
 
     <?php if (!empty($errors)): ?>
       <div style="max-width:700px;margin:0 auto 20px;padding:12px;background:#ffe6e6;color:#900;border-radius:8px;">

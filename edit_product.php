@@ -46,6 +46,7 @@ if (isset($_POST['update'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - CyreCafé</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="edit_product.css">
 </head>
 <body>
 
