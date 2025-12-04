@@ -1,25 +1,120 @@
+.customers-container form button {
+    background-color: #6d4c41;
+    color: #fff8f0;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: none;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+.customers-container form button:hover {
+    background-color: #5d4037;
+}
+.customers-container .edit-btn,
+.customers-container a.edit-btn,
+.customers-container .delete-btn,
+.customers-container a.delete-btn {
+    background-color: #6d4c41;
+    color: #fff8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    min-width: 70px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+.customers-container .edit-btn:hover,
+.customers-container a.edit-btn:hover {
+    background-color: #5d4037;
+}
+.customers-container .delete-btn,
+.customers-container a.delete-btn {
+    background-color: #d32f2f;
+    margin-left: 8px;
+}
+.customers-container .delete-btn:hover,
+.customers-container a.delete-btn:hover {
+    background-color: #d32f2f;
+}
+.customers-container .cancel-btn {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #5d4037;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    font-size: 15px;
+    padding: 0;
+}
+.customers-container .cancel-btn:hover {
+    color: #3e2723;
+}
 .customers-container {
-    max-width: 950px;
+    max-width: 700px;
     margin: 50px auto;
-    padding: 30px;
-    background: #fff8f0;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    border: 1px solid #d7ccc8;
-    transition: all 0.3s;
+    padding: 25px;
+    background-color: #fff8f0;
+    border-radius: 12px;
+    border: 1px solid #8d6e63;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.customers-container:hover {
-    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.customers-container input[type="text"],
+.customers-container input[type="email"],
+.customers-container input[type="password"],
+.customers-container input[type="number"],
+.customers-container textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #8d6e63;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #fff8f0;
+    color: #3e2723;
+    box-sizing: border-box;
+    font-family: inherit;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.customers-container input[type="text"]:focus,
+.customers-container input[type="email"]:focus,
+.customers-container input[type="password"]:focus,
+.customers-container input[type="number"]:focus,
+.customers-container textarea:focus {
+    outline: none;
+    border-color: #6d4c41;
+    box-shadow: 0 0 8px rgba(101, 67, 33, 0.15);
+}
+
+.customers-container textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 .customers-container h2 {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     color: #3e2723;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .form-box {
@@ -45,40 +140,10 @@
     font-weight: 600;
 }
 
-.form-box input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 18px;
-    border-radius: 12px;
-    border: 1px solid #8d6e63;
-    font-size: 16px;
-    transition: all 0.3s;
-}
-
 .form-box input:focus {
     border-color: #6d4c41;
     box-shadow: 0 0 8px rgba(101, 67, 33, 0.4);
     outline: none;
-}
-
-.form-box button {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #95d89a, #6dcb6d);
-    border: none;
-    border-radius: 15px;
-    color: #fff8f0;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(101, 67, 33, 0.2);
-}
-
-.form-box button:hover {
-    background: linear-gradient(135deg, #7cc17c, #5ba75a);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(101, 67, 33, 0.3);
 }
 
 .cancel-btn {
@@ -99,70 +164,28 @@
     overflow-x: auto;
 }
 
-.table-box table {
+.customers-container table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff8f0;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    overflow: hidden;
+    margin-top: 20px;
 }
 
-.table-box th,
-.table-box td {
-    padding: 14px 18px;
+.customers-container th,
+.customers-container td {
+    padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #d7ccc8;
     color: #3e2723;
-    font-size: 15px;
-    transition: all 0.3s;
 }
 
-.table-box th {
+.customers-container th {
     background-color: #ac8679;
     color: #fff8f0;
-    font-weight: 700;
-    font-size: 16px;
 }
 
 .table-box tr:hover {
     background-color: #f1e7de;
     transform: translateX(2px);
 }
-
-.edit-btn, .delete-btn {
-    padding: 7px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s;
-    display: inline-block;
-}
-
-.edit-btn {
-    background: linear-gradient(135deg, #6d4c41);
-    color: #fff8f0;
-}
-
-.edit-btn:hover {
-    background: linear-gradient(135deg, #5d4037);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(101, 67, 33, 0.3);
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #d32f2f);
-    color: #fff8f0;
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #b71c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-}
-
 
 .order-details-container {
     max-width: 950px;
@@ -263,4 +286,81 @@
     background: linear-gradient(135deg, #7cc17c, #5ba75a);
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(101, 67, 33, 0.3);
+}
+
+.customers-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff8f0;
+}
+
+.customers-container th,
+.customers-container td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d7ccc8;
+    color: #3e2723;
+    font-size: 15px;
+}
+
+.customers-container th {
+    background-color: #ac8679;
+    color: #fff8f0;
+    font-weight: 700;
+}
+
+.customers-container tr:hover {
+    background-color: #f1e7de;
+}
+
+.customers-container a.edit-btn {
+    background-color: #6d4c41;
+    color: #fff8f0;
+    padding: 7px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.customers-container a.edit-btn:hover {
+    background-color: #5d3a30;
+}
+
+.customers-container a.delete-btn {
+    background-color: #d32f2f;
+    color: #fff8f0;
+    padding: 7px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.customers-container a.delete-btn:hover {
+    background-color: #b71c1c;
+}
+
+.flash {
+    max-width: 900px;
+    margin: 0 auto 18px auto;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+.flash.success {
+    background-color: #e8f6ea;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+.flash.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
 }

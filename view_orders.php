@@ -3,53 +3,47 @@ include 'database.php';
 
 if (isset($_GET['delete'])) {
     $order_id = intval($_GET['delete']);
-
-    $stmtGet = $conn->prepare("SELECT customer_id FROM orders WHERE order_id = ?");
-    $stmtGet->bind_param("i", $order_id);
-    $stmtGet->execute();
-    $stmtGet->bind_result($customer_id);
-    $stmtGet->fetch();
-    $stmtGet->close();
-
-    $stmt1 = $conn->prepare("DELETE FROM order_items WHERE order_id = ?");
-    $stmt1->bind_param("i", $order_id);
-    $stmt1->execute();
-    $stmt1->close();
-
-    $stmt2 = $conn->prepare("DELETE FROM orders WHERE order_id = ?");
-    $stmt2->bind_param("i", $order_id);
-    $stmt2->execute();
-    $stmt2->close();
-
-    $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM orders WHERE customer_id = ?");
-    $stmtCheck->bind_param("i", $customer_id);
-    $stmtCheck->execute();
-    $stmtCheck->bind_result($order_count);
-    $stmtCheck->fetch();
-    $stmtCheck->close();
-
-    if ($order_count == 0) {
-        $stmtDelCust = $conn->prepare("DELETE FROM customers WHERE customer_id = ?");
-        $stmtDelCust->bind_param("i", $customer_id);
-        $stmtDelCust->execute();
-        $stmtDelCust->close();
+    
+    try {
+        $stmt = $conn->prepare("DELETE FROM order_items WHERE order_id = ?");
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $stmt->close();
+        
+        $stmt = $conn->prepare("DELETE FROM orders WHERE order_id = ?");
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $stmt->close();
+        
+        header("Location: view_orders.php");
+        exit;
+    } catch (Exception $e) {
+        $error_message = "Error deleting order: " . $e->getMessage();
     }
-
-    header("Location: view_orders.php");
-    exit;
 }
 
-$sql = "
-    SELECT o.order_id, o.customer_id, c.full_name, o.order_date, o.total_price, 
-           COUNT(oi.order_item_id) AS total_items
+$result = $conn->query("
+    SELECT o.order_id, o.customer_id, c.full_name, o.order_date, o.total_price
     FROM orders o
-    JOIN customers c ON o.customer_id = c.customer_id
-    LEFT JOIN order_items oi ON o.order_id = oi.order_id
-    GROUP BY o.order_id
-    ORDER BY o.order_id DESC
-";
+    LEFT JOIN customers c ON o.customer_id = c.customer_id
+    ORDER BY o.order_date DESC
+");
 
-$result = $conn->query($sql);
+function get_order_items($conn, $order_id) {
+    $sql = "SELECT p.product_name, oi.quantity FROM order_items oi 
+            JOIN products p ON oi.product_id = p.product_id 
+            WHERE oi.order_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $order_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $items = [];
+    while ($r = $res->fetch_assoc()) {
+        $items[] = $r;
+    }
+    $stmt->close();
+    return $items;
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,12 +51,30 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders - CyreCafé</title>
+    <title>Placed Orders - CyreCafé</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="orders-container">
-        <h2>All Orders</h2>
+
+<div class="container">
+    <nav class="nav">
+        <div class="nav-logo">
+            <img src="uploads/cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
+            <h1>CyreCafé</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.php">Coffee</a>
+            <a href="orders.php">Orders</a>
+            <a href="view_orders.php" class="active">Placed Orders</a>
+            <a href="customers.php">Customers</a>
+            <a href="manage_categories.php">Manage Categories</a>
+        </div>
+    </nav>
+
+    <div class="orders-list-container">
+        <h2>Placed Orders</h2>
+        <p class="subtitle">Orders placed by customers — review details, adjust quantities, or remove orders below.</p>
 
         <?php if ($result && $result->num_rows > 0): ?>
             <table class="orders-table">
@@ -70,32 +82,47 @@ $result = $conn->query($sql);
                     <tr>
                         <th>Order ID</th>
                         <th>Customer</th>
-                        <th>Order Date</th>
-                        <th>Total Items</th>
-                        <th>Total Price (₱)</th>
+                        <th>Placed Date</th>
+                        <th>Items</th>
+                        <th>Total (₱)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($row = $result->fetch_assoc()): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo $row['order_id']; ?></td>
-                            <td><?php echo htmlspecialchars($row['full_name']); ?></td>
-                            <td><?php echo $row['order_date']; ?></td>
-                            <td><?php echo $row['total_items']; ?></td>
-                            <td><?php echo number_format($row['total_price'], 2); ?></td>
+                            <td><strong>#<?php echo $row['order_id']; ?></strong></td>
+                            <td><?php echo htmlspecialchars($row['full_name'] ?? 'Unknown'); ?></td>
+                            <td><?php echo date('M d, Y H:i', strtotime($row['order_date'])); ?></td>
                             <td>
-                                <a class="view-order-btn" href="view_order_details.php?order_id=<?php echo $row['order_id']; ?>">View Details</a>
-                                <a class="delete-order-btn" href="view_orders.php?delete=<?php echo $row['order_id']; ?>" 
-                                   onclick="return confirm('Are you sure you want to delete this order and its customer?');">Delete</a>
+                                <?php
+                                $items = get_order_items($conn, $row['order_id']);
+                                if (count($items) > 0) {
+                                    foreach ($items as $it) {
+                                        echo htmlspecialchars($it['product_name']) . ' ×' . intval($it['quantity']) . '<br>';
+                                    }
+                                } else {
+                                    echo '<span class="no-items">No items</span>';
+                                }
+                                ?>
+                            </td>
+                            <td><strong style="color:#26a69a;">₱<?php echo number_format($row['total_price'], 2); ?></strong></td>
+                            <td class="action-cell">
+                                <a href="view_order_details.php?order_id=<?php echo $row['order_id']; ?>" class="action-btn action-btn-view">View</a>
+                                <a href="view_orders.php?delete=<?php echo $row['order_id']; ?>" class="action-btn action-btn-delete" onclick="return confirm('Are you sure you want to delete order #<?php echo $row['order_id']; ?>?');">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         <?php else: ?>
-            <p class="no-orders">No orders found.</p>
+            <div class="empty-orders-state">
+                <p>No placed orders yet.</p>
+                <p><a href="index.php">Create an order from the Coffee page.</a></p>
+            </div>
         <?php endif; ?>
     </div>
+</div>
+
 </body>
 </html>

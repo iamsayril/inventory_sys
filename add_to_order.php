@@ -1,16 +1,21 @@
 <?php
 include 'database.php';
 
-if (!isset($_POST['customer_id']) || empty($_POST['customer_id'])) {
-    echo "<script>
-        alert('Please select a customer first.');
-        window.location.href = 'index.php';
-    </script>";
-    exit;
+if (isset($_POST['customer_id']) && !empty($_POST['customer_id'])) {
+    $customer_id = intval($_POST['customer_id']);
+} else {
+    $stmtFirstCust = $conn->query("SELECT customer_id FROM customers ORDER BY customer_id ASC LIMIT 1");
+    if ($stmtFirstCust && $stmtFirstCust->num_rows > 0) {
+        $firstCust = $stmtFirstCust->fetch_assoc();
+        $customer_id = $firstCust['customer_id'];
+    } else {
+        echo "<script>
+            alert('No customers found. Please create a customer first.');
+            window.location.href = 'index.php';
+        </script>";
+        exit;
+    }
 }
-
-$customer_id = intval($_POST['customer_id']);
-
 if (isset($_POST['product_id'], $_POST['price_each'])) {
 
     $product_id = intval($_POST['product_id']);
@@ -82,7 +87,7 @@ if (isset($_POST['product_id'], $_POST['price_each'])) {
 
     echo "<script>
         alert('Product added to order!');
-        window.location.href = 'index.php';
+        window.location.href = 'orders.php';
     </script>";
     exit;
 

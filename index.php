@@ -3,13 +3,22 @@ include 'database.php';
 
 if (isset($_GET['delete'])) {
     $product_id = intval($_GET['delete']);
-    $sql_delete = "DELETE FROM products WHERE product_id = $product_id";
-
-    if ($conn->query($sql_delete)) {
+    
+    try {
+        $stmt1 = $conn->prepare("DELETE FROM order_items WHERE product_id = ?");
+        $stmt1->bind_param("i", $product_id);
+        $stmt1->execute();
+        $stmt1->close();
+        
+        $stmt2 = $conn->prepare("DELETE FROM products WHERE product_id = ?");
+        $stmt2->bind_param("i", $product_id);
+        $stmt2->execute();
+        $stmt2->close();
+        
         header("Location: index.php");
         exit;
-    } else {
-        echo "Error deleting product: " . $conn->error;
+    } catch (Exception $e) {
+        echo "Error deleting product: " . $e->getMessage();
     }
 }
 ?>
@@ -30,12 +39,12 @@ if (isset($_GET['delete'])) {
 
   <nav class="nav">
     <div class="nav-logo">
-      <img src="cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
+      <img src="uploads/cup-of-coffee.png" alt="Coffee Icon" class="nav-logo-icon">
       <h1>CyreCafé</h1>
     </div>
     <div class="nav-links">
       <a href="#coffee-section">Coffee</a>
-      <a href="view_orders.php">Orders</a>
+      <a href="orders.php">Orders</a>
       <a href="customers.php">Customers</a>
       <a href="manage_categories.php">Manage Categories</a>
       <a href="#about-section">About</a>
@@ -57,7 +66,8 @@ if (isset($_GET['delete'])) {
 
   <section class="products" id="coffee-section">
 
-    <div style="width:100%; display:flex; justify-content:flex-end; margin-bottom:20px;">
+    <div class="products-header-section">
+      <h2 class="products-title">Our Coffee</h2>
       <a href="add_product.php" class="add-product-btn">Add Product</a>
     </div>
 
@@ -70,58 +80,67 @@ if (isset($_GET['delete'])) {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+
             echo "<div class='product'>";
 
             if (!empty($row['prod_img']) && file_exists('uploads/' . $row['prod_img'])) {
                 echo "<img src='uploads/" . htmlspecialchars($row['prod_img']) . "' 
-                      alt='Product Image' 
-                      style='width:100%; height:200px; object-fit:cover; border-radius:10px; margin-bottom:12px;'>";
+                      alt='Product Image'>";
             } else {
-                echo "<div style='width:100%; height:200px; background:#ccc; border-radius:10px; 
-                      display:flex; align-items:center; justify-content:center; color:#555;'>No Image</div>";
+                echo "<div style='width:100%; height:200px; background:#e8d7d0; border-radius:12px 12px 0 0; 
+                      display:flex; align-items:center; justify-content:center; color:#999; font-style: italic;'>No Image</div>";
             }
 
+            echo "<div class='product-info'>";
             echo "<h4>" . htmlspecialchars($row['product_name']) . "</h4>";
+            
+            echo "<div class='product-meta'>";
+            echo "<span class='product-price'>₱" . htmlspecialchars($row['price']) . "</span>";
+            echo "<span class='product-category'>" . (!empty($row['category_name']) ? htmlspecialchars($row['category_name']) : 'Uncategorized') . "</span>";
+            echo "</div>";
 
-            echo "<p>₱" . htmlspecialchars($row['price']) . "</p>";
+            $stock = intval($row['stock']);
+            if ($stock > 10) {
+                $stock_class = 'stock-in';
+                $stock_text = '✓ In Stock';
+            } elseif ($stock > 0) {
+                $stock_class = 'stock-low';
+                $stock_text = '⚠ Low Stock (' . $stock . ')';
+            } else {
+                $stock_class = 'stock-out';
+                $stock_text = '✕ Out of Stock';
+            }
+            echo "<span class='stock-badge $stock_class'>$stock_text</span>";
 
-            echo "<p>Stock: " . htmlspecialchars($row['stock']) . "</p>";
+            echo "</div>";
 
-            echo "<p>Category: " . (!empty($row['category_name']) ? htmlspecialchars($row['category_name']) : 'None') . "</p>";
-
+            echo "<div class='product-actions'>";
+            
+            $is_out_of_stock = $stock <= 0;
             echo "
-                <a href='edit_product.php?product_id=" . $row['product_id'] . "' class='edit-btn'>Edit</a>
-                <a href='index.php?delete=" . $row['product_id'] . "' class='delete-btn' 
-                   onclick='return confirm(\"Are you sure you want to delete this product?\");'>Delete</a>
+              <form method='POST' action='add_to_order.php' style='display:inline-block; width:100%;'>
+                <input type='hidden' name='product_id' value='" . $row['product_id'] . "'>
+                <input type='hidden' name='price_each' value='" . $row['price'] . "'>
+                <button type='submit' class='add-cart-btn' title='Add to Cart' " . ($is_out_of_stock ? "disabled style='opacity:0.6; cursor:not-allowed;'" : "") . ">
+                  Add to Cart
+                </button>
+              </form>
             ";
-
             echo "
-                <form method='POST' action='add_to_order.php' style='margin-top:10px;'>
-                    <label for='customer_id'>Select Customer:</label>
-                    <select name='customer_id' required style='width:100%; padding:6px; margin-bottom:8px; border-radius:8px; border:1px solid #8d6e63;'>
-                        <option value=''>--Choose Customer--</option>";
-                        
-                        $cust_result = $conn->query("SELECT customer_id, full_name FROM customers ORDER BY full_name ASC");
-                        while ($cust = $cust_result->fetch_assoc()) {
-                            echo "<option value='" . $cust['customer_id'] . "'>" . htmlspecialchars($cust['full_name']) . "</option>";
-                        }
-
-            echo "  </select>
-                    <input type='hidden' name='product_id' value='" . $row['product_id'] . "'>
-                    <input type='hidden' name='price_each' value='" . $row['price'] . "'>
-                    <button type='submit' class='add-cart-btn' title='Add to Cart'>
-                        <i class='fas fa-cart-plus'></i> Add to Cart
-                    </button>
-                </form>
+                <a href='edit_product.php?product_id=" . $row['product_id'] . "' class='edit-btn' title='Edit Product'>Edit</a>
+                <a href='index.php?delete=" . $row['product_id'] . "' class='delete-btn' onclick=\"return confirm('Are you sure you want to delete this product?');\" title='Delete Product'>Delete</a>
             ";
 
             echo "</div>";
+            echo "</div>";
         }
     } else {
-        echo "<p>No products found.</p>";
+        echo "<p style='grid-column: 1/-1; text-align: center; color: #999; padding: 40px;'>No products found. Create your first product to get started!</p>";
     }
     ?>
-</section>
+
+  </section>
+
 
   <section class="about" id="about-section">
     <div class="about-box">
@@ -150,6 +169,7 @@ if (isset($_GET['delete'])) {
   </section>
 
 </div>
+
 
 </body>
 </html>
